@@ -298,6 +298,13 @@ function plugin_setting_string_onelogin_saml_customize_links_saml_login($network
 			  <p class="description">'.__("If 'Keep Local login' enabled, this will be showed as message at the SAML link.", 'onelogin-saml-sso').'</p>';
 }
 
+function plugin_setting_string_onelogin_saml_customize_links_return_url($network = false) {
+	$value = $network ? get_site_option('onelogin_saml_customize_links_return_url') : get_option('onelogin_saml_customize_links_return_url');
+	echo '<input type="text" name="onelogin_saml_customize_links_return_url" id="onelogin_saml_customize_links_return_url"
+		  value= "'.esc_attr($value).'" size="80">
+			  <p class="description">'.__("Change the return url. Format: your-base-domain.com/{return_url}.", 'onelogin-saml-sso').'</p>';
+}
+
 function plugin_setting_boolean_onelogin_saml_advanced_settings_debug($network = false) {
 	$value = $network ? get_site_option('onelogin_saml_advanced_settings_debug') : get_option('onelogin_saml_advanced_settings_debug');
 	echo '<input type="checkbox" name="onelogin_saml_advanced_settings_debug" id="onelogin_saml_advanced_settings_debug"
@@ -829,6 +836,10 @@ function get_onelogin_saml_settings_customize_links() {
 		),
 		'onelogin_saml_customize_links_saml_login' =>  array(
 			__('SAML Link Message', 'onelogin-saml-sso'),
+			'string'
+		),
+		'onelogin_saml_customize_links_return_url' =>  array(
+			__('Custom Return URL', 'onelogin-saml-sso'),
 			'string'
 		)
 	);

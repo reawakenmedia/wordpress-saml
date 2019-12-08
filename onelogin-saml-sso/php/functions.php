@@ -74,8 +74,16 @@ function saml_sso() {
 		wp_redirect(home_url());
 		exit();
 	}
+
 	if (isset($_SERVER['REQUEST_URI']) && !isset($_GET['saml_sso'])) {
-		$auth->login($_SERVER['REQUEST_URI']);
+		$customReturnUrl = get_option('onelogin_saml_customize_links_return_url');
+		if (empty($customReturnUrl)) {
+			$returnTo = $_SERVER['REQUEST_URI'];
+		} else {
+			$returnTo = get_site_url(null, '/' . $customReturnUrl, $_SERVER['REQUEST_SCHEME']);
+		}
+	
+		$auth->login($returnTo);
 	} else {
 		$auth->login();
 	}
